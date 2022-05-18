@@ -1,17 +1,27 @@
+##Maxcode##
+import tkinter as tk
 from pytube import YouTube
 
-url = 'https://www.youtube.com/watch?v=2MFO66voVm0'
-my_video = YouTube(url)
+url = input("Your YouTube url: ")
+video = YouTube(url)
 
-print("####################### Video Title ############################")
-print (my_video.title)
+print("*********************Video Title************************")
+print(video.title)
 
-print("####################### Thumbnail ############################")
-print (my_video.thumbnail_url)
+print("********************Tumbnail Image***********************")
+print(video.thumbnail_url)
 
-my_video = my_video.streams.get_audio_only()
+print("********************Download video*************************")
+#stream = video.streams.get_highest_resolution()
+stream = video.streams.get_audio_only()
 
-# my_video = my_video.streams.get_highest_resolution()
-# mp4 option
 
-my_video.download()
+#Download video
+stream.download()
+
+root = tk.Tk()
+root.title("YouTube Mp3/Mp4 downloader")
+root.geometry('600x400+50+50')
+
+
+root.mainloop()
