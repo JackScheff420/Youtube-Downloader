@@ -10,4 +10,8 @@ print("####################### Thumbnail ############################")
 print (my_video.thumbnail_url)
 
 my_video = my_video.streams.get_audio_only()
+
+# my_video = my_video.streams.get_highest_resolution()
+# mp4 option
+
 my_video.download()
