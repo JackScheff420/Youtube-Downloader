@@ -1,11 +1,10 @@
 ##Maxcode##
+from functools import update_wrapper
 import tkinter as tk
 from turtle import down
 from pytube import YouTube
 from pytube import Playlist
 import os
-
-
 
 
 
@@ -22,8 +21,20 @@ def download_plist(p):
 
 
 
+eingabe_playlist = input("möchtest du nur ein Video oder eine Playlist runterladen? (V/P)")
+if eingabe_playlist.upper() == 'V':
 
-download_plist(input("Your YouTube url: "))
+    download_plist(input("Your YouTube url: "))
+
+elif eingabe_playlist.upper() == 'P':
+    
+    download_plist(input("Your YouTube url: "))
+
+
+
+
+
+
 
 # video = YouTube(url)
 
