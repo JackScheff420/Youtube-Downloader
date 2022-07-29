@@ -1,4 +1,5 @@
 ##Maxcode##
+from asyncio import streams
 from functools import update_wrapper
 import tkinter as tk
 from turtle import down
@@ -9,40 +10,59 @@ import os
 
 
 
-def download_plist(p):
+
+
+# wenn der link 'playlist' im namen hat soll automatisch die playlist runtergeladen werden mit der playlist funktion
+
+cwd = os.getcwd()
+
+
+def download_one(p, file_ext):
+    print(f'Downloading: {p.title}')
+
+
+
+def download_plist(p, file_ext):
     purl = Playlist(p)
 
     print(f'Downloading: {p.title}')
 
     for video in purl.videos:
+        print("*********************Video Title************************")
         print(video.title)
-        st = video.streams.get_highest_resolution()
+        
+        if file_ext.lower() == 'mp3':
+            st = video.streams.get_audio_only()
+            
+            
+        elif file_ext.lower() == 'mp4':
+            st = video.streams.get_highest_resolution()
+
+        else:
+            exit()
+
         st.download()
 
+        if file_ext.lower() == 'mp3':
+            mp4_file = os.path.join(cwd, video.title + ".mp4")
+            mp3_file = os.path.join(cwd, video.title + ".mp3")
+            os.rename(mp4_file, mp3_file)
 
 
-eingabe_playlist = input("möchtest du nur ein Video oder eine Playlist runterladen? (V/P)")
+
+
+
+eingabe_playlist = input("möchtest du nur ein Video oder eine Playlist runterladen? (V/P) ... ")
+eingabe_dateiformat = input("möchtest du mp3 oder mp4? ... ")
 if eingabe_playlist.upper() == 'V':
 
-    download_plist(input("Your YouTube url: "))
+    download_plist(input("Your YouTube url: "), eingabe_dateiformat)
 
 elif eingabe_playlist.upper() == 'P':
     
-    download_plist(input("Your YouTube url: "))
+    download_plist(input("Your YouTube url: "), eingabe_dateiformat)
 
 
-
-
-
-
-
-# video = YouTube(url)
-
-# print("*********************Video Title************************")
-# print(video.title)
-
-# print("********************Tumbnail Image***********************")
-# print(video.thumbnail_url)
 
 
 
