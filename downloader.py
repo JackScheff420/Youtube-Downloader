@@ -15,8 +15,9 @@ import os
 
 # wenn der link 'playlist' im namen hat soll automatisch die playlist runtergeladen werden mit der playlist funktion
 
-#cwd = os.getcwd()
-cwd = '\\smor0069\scheffm$\Eigene Dateien\Arbeit\Programmieren\Python\Youtube-Downloader'
+cwd = os.getcwd()
+
+
 
 
 
@@ -95,20 +96,20 @@ def download_plist(link, file_ext):
         
 
         if file_ext.lower() == 'mp3':
-            mp4_file = os.path.join(cwd, video.title)
+            mp4_file = os.path.join(cwd, video.title + ".mp4")
             mp4_list.append(mp4_file)
 
     for mp4_file in mp4_list:
         print(mp4_file)
-        mp3_file = os.path.join(cwd, mp4_file + ".mp3")
+        mp3_file = mp4_file + ".mp3"
         print(mp3_file)
-        os.renames(mp4_file, mp3_file)
+        os.rename(mp4_file, mp3_file)
         #os.rename gibt fehlermeldung (kann datei nicht finden)
 
 
 
 
-
+#00000000000000000000000000000000000000000
 
 
 eingabe_playlist_or_one = input("möchtest du nur ein Video oder eine Playlist runterladen? (V/P) ... ")
