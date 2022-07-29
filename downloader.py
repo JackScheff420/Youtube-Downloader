@@ -1,6 +1,7 @@
 ##Maxcode##
-from asyncio import streams
+import time
 from functools import update_wrapper
+from multiprocessing.connection import wait
 import tkinter as tk
 from turtle import down
 from pytube import YouTube
@@ -14,18 +15,47 @@ import os
 
 # wenn der link 'playlist' im namen hat soll automatisch die playlist runtergeladen werden mit der playlist funktion
 
-cwd = os.getcwd()
+#cwd = os.getcwd()
+cwd = '\\smor0069\scheffm$\Eigene Dateien\Arbeit\Programmieren\Python\Youtube-Downloader'
 
 
 
-def download(video, file_ext):
-    if file_ext.lower() == 'mp3':
+# def download(video, file_ext):
+#     if file_ext.lower() == 'mp3':
         
-        st = video.streams.get_audio_only()
+#         st = video.streams.get_audio_only()
+            
+            
+#     elif file_ext.lower() == 'mp4':
+        
+#         st = video.streams.get_highest_resolution()
+
+#     else:
+#         exit()
+
+#     st.download()
+
+#     if file_ext.lower() == 'mp3':
+#         mp4_file = os.path.join(cwd, video.title + ".mp4")
+#         mp3_file = os.path.join(cwd, video.title + ".mp3")
+#         os.rename(mp4_file, mp3_file)
+
+
+
+def download_one(link, file_ext):
+    video = YouTube(link)
+
+    print(f'Downloading: {video.title}')
+
+    print("*********************Video Title************************")
+    print(video.title)
+
+
+    if file_ext.lower() == 'mp3':
+            st = video.streams.get_audio_only()
             
             
     elif file_ext.lower() == 'mp4':
-        
         st = video.streams.get_highest_resolution()
 
     else:
@@ -39,47 +69,43 @@ def download(video, file_ext):
         os.rename(mp4_file, mp3_file)
 
 
-
-def download_one(link, file_ext):
-    video = YouTube(link)
-
-    print(f'Downloading: {link.title}')
-    print("*********************Video Title************************")
-    print(link.title)
-
-
-
-
 def download_plist(link, file_ext):
     purl = Playlist(link)
 
     print(f'Downloading: {link.title}')
-
+    
+    mp4_list = []
+    
     for video in purl.videos:
         print("*********************Video Title************************")
         print(video.title)
+        
+        if file_ext.lower() == 'mp3':
+            st = video.streams.get_audio_only()
+            
+            
+        elif file_ext.lower() == 'mp4':
+            st = video.streams.get_highest_resolution()
 
-        download(purl, file_ext)
+        else:
+            exit()
 
-
+        st.download()
 
         
-        # if file_ext.lower() == 'mp3':
-        #     st = video.streams.get_audio_only()
-            
-            
-        # elif file_ext.lower() == 'mp4':
-        #     st = video.streams.get_highest_resolution()
 
-        # else:
-        #     exit()
+        if file_ext.lower() == 'mp3':
+            mp4_file = os.path.join(cwd, video.title)
+            mp4_list.append(mp4_file)
 
-        # st.download()
+    for mp4_file in mp4_list:
+        print(mp4_file)
+        mp3_file = os.path.join(cwd, mp4_file + ".mp3")
+        print(mp3_file)
+        os.renames(mp4_file, mp3_file)
+        #os.rename gibt fehlermeldung (kann datei nicht finden)
 
-        # if file_ext.lower() == 'mp3':
-        #     mp4_file = os.path.join(cwd, video.title + ".mp4")
-        #     mp3_file = os.path.join(cwd, video.title + ".mp3")
-        #     os.rename(mp4_file, mp3_file)
+
 
 
 
@@ -95,27 +121,6 @@ if eingabe_playlist_or_one.upper() == 'V':
 elif eingabe_playlist_or_one.upper() == 'P':
     
     download_plist(input("Your YouTube url: "), eingabe_dateiformat)
-
-
-
-
-
-# eingabe = input("mp3 oder mp4? ")
-# if eingabe == 'mp3':
-
-#     stream = video.streams.get_audio_only()
-#     stream.download()
-
-#     mp4_file = os.path.join("H:\Eigene Dateien\Arbeit\Programmieren\Python\Youtube-Downloader", video.title + ".mp4")
-#     mp3_file = os.path.join("H:\Eigene Dateien\Arbeit\Programmieren\Python\Youtube-Downloader", video.title + ".mp3")
-#     os.rename(mp4_file, mp3_file)
-
-# elif eingabe == 'mp4':
-#     stream = video.streams.get_highest_resolution()
-#     stream.download()
-
-# else:
-#     exit()
 
 
 
