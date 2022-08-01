@@ -19,27 +19,30 @@ cwd = os.getcwd()
 
 
 
+def download(video, file_ext):
+    mp4_list = []
 
+    print(f'Downloading: {video.title}')
 
-# def download(video, file_ext):
-#     if file_ext.lower() == 'mp3':
-        
-#         st = video.streams.get_audio_only()
+    print("*********************Video Title************************")
+    print(video.title)
+
+    if file_ext.lower() == 'mp3':
+            st = video.streams.get_audio_only()
             
             
-#     elif file_ext.lower() == 'mp4':
-        
-#         st = video.streams.get_highest_resolution()
+    elif file_ext.lower() == 'mp4':
+        st = video.streams.get_highest_resolution()
 
-#     else:
-#         exit()
+    else:
+        exit()
 
-#     st.download()
+    st.download()
 
-#     if file_ext.lower() == 'mp3':
-#         mp4_file = os.path.join(cwd, video.title + ".mp4")
-#         mp3_file = os.path.join(cwd, video.title + ".mp3")
-#         os.rename(mp4_file, mp3_file)
+    if file_ext.lower() == 'mp3':
+        mp4_file = os.path.join(cwd, video.title + ".mp4")
+        mp3_file = os.path.join(cwd, video.title + ".mp3")
+        os.rename(mp4_file, mp3_file)
 
 
 
@@ -75,7 +78,7 @@ def download_plist(link, file_ext):
 
     print(f'Downloading: {link.title}')
     
-    mp4_list = []
+    # mp4_list = []
     
     for video in purl.videos:
         print("*********************Video Title************************")
@@ -100,9 +103,7 @@ def download_plist(link, file_ext):
             mp4_list.append(mp4_file)
 
     for mp4_file in mp4_list:
-        print(mp4_file)
         mp3_file = mp4_file + ".mp3"
-        print(mp3_file)
         os.rename(mp4_file, mp3_file)
         #os.rename gibt fehlermeldung (kann datei nicht finden)
 
